@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#171b1f">
+<title>Пульт безопасности — Городской музей</title>
+<style>
+:root{color-scheme:dark;--bg:#15191c;--panel:#23272a;--panel2:#2a2b2a;--ink:#f1e4cc;--muted:#c3b293;--gold:#c9a568;--line:#7c674477;--green:#9cd8a9;--amber:#ffd083;--red:#f29b84}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(ellipse at 50% -25%,#464137 0%,transparent 54%),radial-gradient(ellipse at 70% 110%,#22343a 0%,transparent 50%),repeating-linear-gradient(100deg,#14191d 0px,#171c1f 3px,#14191d 6px);font:16px Georgia,'Times New Roman',serif}
+button,select,input{font:inherit}button{cursor:pointer;touch-action:manipulation}button:disabled{opacity:.34;cursor:not-allowed}button:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #fff2ba;outline-offset:4px}
+main{max-width:1150px;margin:auto;padding:25px 18px 45px}
+.overline{text-align:center;text-transform:uppercase;letter-spacing:.32em;font:600 11px system-ui,sans-serif;color:#cfaf75}
+h1{font-size:clamp(30px,4.4vw,49px);text-align:center;font-weight:400;letter-spacing:.04em;margin:12px 0 8px;text-shadow:0 4px 15px #000}
+.desc{text-align:center;max-width:840px;margin:0 auto 24px;color:#d5c5a8;font-size:15px;line-height:1.5}
+.frame{position:relative;border:2px solid #806944;border-radius:16px;overflow:hidden;padding:23px clamp(14px,3vw,34px) 26px;box-shadow:0 25px 70px #0009,inset 0 0 0 4px #101415,inset 0 0 0 6px #5b4a32;background:linear-gradient(125deg,#35312b33,transparent 35%),repeating-linear-gradient(90deg,#262a2b 0px,#292c2c 13px,#25292a 14px,#24282a 27px)}
+.frame:before,.frame:after{position:absolute;content:'✦';top:7px;color:#e2bf75;font-size:18px}.frame:before{left:14px}.frame:after{right:14px}
+.plaque{margin:5px auto 22px;max-width:770px;padding:10px 14px;text-align:center;border:1px solid #ac8b5c55;border-radius:5px;background:#17191a9a;box-shadow:inset 0 0 10px #0007;color:#e3cda4;line-height:1.5;font-size:14px}
+.plaque q{quotes:none}
+.toprow{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--line);padding-bottom:15px;margin-bottom:20px}
+.plate-title{text-transform:uppercase;letter-spacing:.2em;color:#dfbf82;font:700 12px/1.4 system-ui,sans-serif}
+.status{display:flex;align-items:center;gap:9px;text-align:right;color:#dac59f;font:600 12px/1.4 system-ui,sans-serif;letter-spacing:.07em}
+.dot{width:12px;height:12px;flex:none;border-radius:50%;background:#8bc3a7;box-shadow:0 0 13px #7fdeb97d}.dot.warn{background:#edc377;box-shadow:0 0 13px #d99e52}.dot.alarm{background:#e18170;box-shadow:0 0 18px #ed5046}
+.circuits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.circuit{background:linear-gradient(180deg,#36342f,#252829);border:1px solid #796446;border-radius:12px;box-shadow:inset 0 1px 0 #eacb8240,0 5px 12px #0005;text-align:center;padding:18px 12px 14px;min-width:0}
+.circuit-id{font:700 13px/1.5 system-ui,sans-serif;letter-spacing:.27em;color:#f0d497}
+.circuit-title{font-size:clamp(19px,2.2vw,27px);margin:3px 0 5px}
+.circuit-purpose{font:12px/1.4 system-ui,sans-serif;color:#bcae97;min-height:33px}
+.assembly{position:relative;height:155px;max-width:200px;margin:9px auto 5px;display:flex;justify-content:center;align-items:center}
+.track{width:72px;height:142px;border:2px solid #8c764a;border-radius:38px;background:linear-gradient(90deg,#080a0b,#343a39 25%,#111616 65%,#080a0b);box-shadow:inset 0 0 15px #000,0 0 0 4px #5a4b33;position:relative}
+.track:before,.track:after{position:absolute;content:'•';color:#d5b67a;font-size:13px;top:6px}.track:before{left:6px}.track:after{right:6px}
+.notches{position:absolute;left:calc(50% + 51px);top:17px;height:126px;display:flex;flex-direction:column;justify-content:space-between;text-align:left;font:700 9px/1.1 system-ui,sans-serif;letter-spacing:.06em;color:#a89b83}
+.handle{position:absolute;left:50%;top:28px;transform:translate(-50%,0);height:39px;width:76px;border-radius:16px;background:linear-gradient(#ebca8d,#9f7740 40%,#4b3828 70%,#b99756);border:2px solid #efd39a;box-shadow:0 5px 8px #000b,inset 0 0 0 2px #594328;transition:top .28s ease;pointer-events:none}
+.handle:before{content:'';position:absolute;width:25px;height:25px;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 40% 30%,#fff2c3,#ae7a37 45%,#452e17 80%);border:2px solid #c8a466}
+.handle.pos1{top:59px}.handle.pos2{top:90px}
+.controls{display:flex;justify-content:center;gap:9px;margin:13px 0 10px}
+.push{border:1px solid #90774d;color:#ffedc6;border-radius:8px;min-height:43px;min-width:70px;padding:8px 13px;background:linear-gradient(#6e5536,#342a20);box-shadow:inset 0 1px 0 #edd39f5a,0 3px 0 #17110e;font:700 16px system-ui,sans-serif}
+.push:hover:not(:disabled){background:linear-gradient(#9e7544,#43311e)}.push:active:not(:disabled){transform:translateY(2px);box-shadow:0 1px 0 #17110e}
+.circuit-led{margin:12px auto 0;display:flex;align-items:center;justify-content:center;gap:8px;min-height:32px;font:700 11px/1.4 system-ui,sans-serif;letter-spacing:.07em;color:#c7d9bc}
+.bulb{display:inline-block;width:10px;height:10px;border-radius:50%;background:#7dd7a8;box-shadow:0 0 13px #a2e7b1}.bulb.service{background:#e4b76f;box-shadow:0 0 16px #ebb25c;animation:blink 1s ease infinite}.bulb.off{background:#6a6f6d;box-shadow:none}.bulb.error{background:#e46b63;box-shadow:0 0 16px #ff695b}
+@keyframes blink{50%{opacity:.25}}
+.under{display:grid;grid-template-columns:1.06fr .94fr;gap:16px;margin-top:17px}
+.module{border:1px solid var(--line);border-radius:10px;background:linear-gradient(145deg,#242625,#1d2122);padding:17px 19px;min-height:153px}
+.module-title{font:700 11px/1.4 system-ui,sans-serif;text-transform:uppercase;letter-spacing:.17em;color:#d7b980;margin-bottom:10px}
+.socket-row{display:flex;gap:17px;align-items:center}
+.socket{position:relative;flex:none;width:73px;height:73px;border-radius:50%;border:5px solid #ad8b54;background:radial-gradient(circle at 42% 38%,#0b0e10,#171e1e 62%,#000);box-shadow:inset 0 0 0 6px #292b28,inset 0 0 16px #000,0 0 0 3px #4f473a}
+.socket:before{content:'◆';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:21px;color:#7b6d53}
+.socket.inserted{background:radial-gradient(circle,#73cbb3,#296352 42%,#08120f 73%);box-shadow:inset 0 0 0 6px #384738,0 0 24px #76c9a85c}
+.socket.inserted:before{content:'✧';color:#e3fff1;font-size:29px}
+.socket-instr{flex:1;min-width:0;color:#d0c2a8;font:13px/1.5 system-ui,sans-serif}
+.socket-act{margin-top:8px;min-height:35px;border-radius:7px;padding:8px 12px;background:#373932;border:1px solid #89724b;color:#f3e0b5;font:600 12px system-ui,sans-serif}
+.clock-row{display:flex;align-items:center;gap:13px}.time{font:normal clamp(32px,4vw,47px)/1.1 'Courier New',monospace;color:#f2d7a2;text-shadow:0 0 13px #e5ad4935;letter-spacing:.03em;white-space:nowrap}
+.clock-caption{font:12px/1.45 system-ui,sans-serif;color:#bdaf91}.bar{height:8px;background:#111715;border-radius:6px;border:1px solid #6a5941;overflow:hidden;margin:17px 0 6px}.fill{height:100%;width:100%;background:linear-gradient(90deg,#a77d38,#edca7d);transition:width .25s linear}.fill.low{background:linear-gradient(90deg,#a53433,#f39d71)}
+.message{margin-top:17px;border:1px solid #796d55;padding:14px 17px;min-height:64px;border-radius:9px;background:#171d1de3;display:flex;align-items:center;gap:13px;font:14px/1.5 system-ui,sans-serif;color:#d9ceb7}
+.message.warning{border-color:#b18a45;color:#f0d6a1;background:#3d3325}.message.danger{border-color:#b45c4c;color:#ffc7b3;background:#402827}.message.success{border-color:#618e76;color:#c9ead4;background:#1c372e}
+.message-icon{font-size:24px;flex:none}.footer{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-top:16px;flex-wrap:wrap}
+.reset{border:1px solid #756448;border-radius:8px;background:#292b2a;color:#e8d6b5;padding:11px 17px;font:13px system-ui,sans-serif}.reset:hover{background:#3b3a35}
+@media(max-width:790px){.circuits{gap:8px}.circuit{padding:13px 6px}.circuit-purpose{font-size:10px}.notches{left:calc(50% + 38px);font-size:8px}.under{grid-template-columns:1fr}.plaque{font-size:12px}}
+@media(max-width:540px){main{padding:17px 8px 30px}.frame{padding:23px 10px 19px}.circuits{grid-template-columns:1fr;max-width:410px;margin:auto}.circuit{display:grid;grid-template-columns:1fr 145px;grid-template-rows:auto auto auto;align-items:center;gap:0 5px;padding:9px 10px}.circuit-id,.circuit-title,.circuit-purpose{grid-column:1;text-align:left}.circuit-id{align-self:end}.circuit-title{font-size:23px}.circuit-purpose{min-height:0}.assembly{grid-column:2;grid-row:1/span 3;height:125px;margin:0}.track{height:111px;width:57px}.handle{width:68px;top:19px;height:33px}.handle.pos1{top:45px}.handle.pos2{top:71px}.notches{top:8px;height:112px;left:calc(50% + 37px)}.controls{grid-column:1;margin:8px 0 0;justify-content:flex-start}.circuit-led{grid-column:2;margin:0;min-height:26px}.push{min-width:64px}.plaque{font-size:12px}.module{padding:13px}.time{font-size:35px}.toprow{gap:7px}.plate-title{font-size:10px}.status{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.handle,.fill{transition:none}.bulb.service{animation:none}}
+</style>
+</head>
+<body>
+<main>
+<div class="overline">Городской музей · Кабинет директора</div>
+<h1>Центральный пульт безопасности</h1>
+<p class="desc">За стеклянной дверцей скрывается бронзовая панель с тремя тяжёлыми переключателями. Под ними — цилиндрическое гнездо и контрольный циферблат. Внутри механизма едва слышно гудение.</p>
+<section class="frame" aria-label="Интерактивный пульт управления музейной охраной">
+  <div class="plaque">«Прежде чем открыть врата, усмири защитника.<br>Прежде чем открыть врата, ослепи наблюдателя.<br>Но наблюдатель должен уснуть лишь после защитника».</div>
+  <div class="toprow"><div class="plate-title">Управление защитными контурами</div><div class="status"><span class="dot" id="statusDot"></span><span id="systemStatus">СИСТЕМЫ АКТИВНЫ</span></div></div>
+  <div class="circuits" id="circuits">
+    <section class="circuit" data-index="0"><div class="circuit-id">КОНТУР I</div><div class="circuit-title">Порог</div><div class="circuit-purpose">Защита двери хранилища</div><div class="assembly"><div class="track"></div><div class="handle" id="handle0"></div><div class="notches"><span>АКТИВЕН</span><span>СЕРВИС</span><span>ОТКЛ.</span></div></div><div class="controls"><button class="push" data-switch="0" data-dir="-1" aria-label="Поднять переключатель Порог">▲</button><button class="push" data-switch="0" data-dir="1" aria-label="Опустить переключатель Порог">▼</button></div><div class="circuit-led"><span class="bulb" id="bulb0"></span><span id="led0">АКТИВЕН</span></div></section>
+    <section class="circuit" data-index="1"><div class="circuit-id">КОНТУР II</div><div class="circuit-title">Око</div><div class="circuit-purpose">Магические датчики и наблюдение</div><div class="assembly"><div class="track"></div><div class="handle" id="handle1"></div><div class="notches"><span>АКТИВЕН</span><span>СЕРВИС</span><span>ОТКЛ.</span></div></div><div class="controls"><button class="push" data-switch="1" data-dir="-1" aria-label="Поднять переключатель Око">▲</button><button class="push" data-switch="1" data-dir="1" aria-label="Опустить переключатель Око">▼</button></div><div class="circuit-led"><span class="bulb" id="bulb1"></span><span id="led1">АКТИВЕН</span></div></section>
+    <section class="circuit" data-index="2"><div class="circuit-id">КОНТУР III</div><div class="circuit-title">Страж</div><div class="circuit-purpose">Охранные конструкты</div><div class="assembly"><div class="track"></div><div class="handle" id="handle2"></div><div class="notches"><span>АКТИВЕН</span><span>СЕРВИС</span><span>ОТКЛ.</span></div></div><div class="controls"><button class="push" data-switch="2" data-dir="-1" aria-label="Поднять переключатель Страж">▲</button><button class="push" data-switch="2" data-dir="1" aria-label="Опустить переключатель Страж">▼</button></div><div class="circuit-led"><span class="bulb" id="bulb2"></span><span id="led2">АКТИВЕН</span></div></section>
+  </div>
+  <div class="under">
+    <div class="module"><div class="module-title">Гнездо контрольного имитатора</div><div class="socket-row"><div class="socket" id="socket" aria-hidden="true"></div><div class="socket-instr"><div id="socketText">Имитатор у вас. Установите его в контрольное гнездо, чтобы подменить сигнал.</div><button class="socket-act" id="insertBtn">Вставить имитатор</button></div></div></div>
+    <div class="module"><div class="module-title">Временное обслуживание · Не более 10 минут</div><div class="clock-row"><div class="time" id="clock">10:00</div><div class="clock-caption" id="clockCaption">Отсчёт начнётся после отключения первого контура.</div></div><div class="bar"><div class="fill" id="timerFill"></div></div></div>
+  </div>
+  <div class="message" id="message" role="status" aria-live="polite"><span class="message-icon" id="messageIcon">✦</span><span id="messageText">Чтобы перевести контур в неактивное состояние, воспользуйтесь переключателем на панели.</span></div>
+  <div class="footer" style="justify-content:flex-end"><button id="reset" class="reset">⟲ Вернуть пульт в исходное состояние</button></div>
+</section>
+</main>
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const names=['Порог','Око','Страж'];
+// У персонажей уже есть имитатор, но он пока не вставлен в гнездо.
+let pos=[0,0,0],readyAt=[0,0,0],errors=0,alarmRaised=false,remaining=600,clockRunning=false,emulator=false,alarmFinal=false;
+let lastTick=Date.now();
+let message={type:'',icon:'✦',text:'Чтобы перевести контур в неактивное состояние, воспользуйтесь переключателем на панели.'};
+function say(text,type='',icon='✦'){message={text,type,icon};}
+function anyOff(){return pos.some(x=>x===2)}
+function checkTimer(){
+ clockRunning=anyOff()&&!emulator&&remaining>0&&!alarmFinal;
+ if(!anyOff()&&!alarmFinal){remaining=600;clockRunning=false;}
+}
+function mistake(why){
+ errors++;
+ if(errors%2===0){
+  alarmRaised=true;
+  say(`${why} СИГНАЛ ТРЕВОГИ! Система зарегистрировала повторную ошибку.`,'danger','⚠');
+ }else{
+  say(`${why} Жёлтый индикатор предупреждает об ошибке. Следующая ошибка вызовет сигнал тревоги.`,'warning','⚠');
+ }
+}
+function move(i,dir){
+ if(alarmFinal){say('Время обслуживания истекло. Защитные контуры восстановлены.','danger','⚠');draw();return;}
+ const old=pos[i],next=old+dir;
+ if(next<0||next>2)return;
+ if(old===0&&next===1){
+  pos[i]=1;
+  readyAt[i]=Date.now()+6000;
+  say(`Контур «${names[i]}» переведён в режим обслуживания. Дождитесь завершения сброса энергии.`);
+ }else if(old===1&&next===2){
+  if(Date.now()<readyAt[i]){
+   mistake(`Контур «${names[i]}»: сброс энергии ещё не завершён.`);
+   pos[i]=0;readyAt[i]=0;
+  }else if(pos.some((v,j)=>j<i&&v===2)){
+   mistake(`Контур «${names[i]}»: нарушение порядка отключения.`);
+   pos[i]=0;readyAt[i]=0;
+  }else{
+   pos[i]=2;readyAt[i]=0;
+   checkTimer();
+   say(`Контур «${names[i]}» отключён. ${emulator?'Имитатор поддерживает контрольный сигнал.':'Контрольный циферблат начал отсчёт.'}`,'success','✓');
+  }
+ }else if(old===2&&next===1){
+  pos[i]=1;
+  readyAt[i]=Date.now()+6000;
+  checkTimer();
+  say(`Контур «${names[i]}» переведён в режим обслуживания для повторного включения.`);
+ }else if(old===1&&next===0){
+  pos[i]=0;readyAt[i]=0;
+  checkTimer();
+  say(`Контур «${names[i]}» вновь активен.`);
+ }
+ draw();
+}
+function timeExpired(){
+ remaining=0;clockRunning=false;alarmFinal=true;pos=[0,0,0];readyAt=[0,0,0];alarmRaised=true;
+ say('ВРЕМЯ ИСТЕКЛО. Контрольная система восстановила защитные контуры и подняла тревогу.','danger','⚠');
+}
+function format(n){const s=Math.max(0,Math.ceil(n));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+function draw(){
+ pos.forEach((value,i)=>{
+  $('handle'+i).className='handle pos'+value;
+  $('bulb'+i).className='bulb'+(value===1?' service':value===2?' off':'');
+  $('led'+i).textContent=value===0?'АКТИВЕН':value===2?'ОТКЛЮЧЁН':Date.now()>=readyAt[i]?'СБРОС ЗАВЕРШЁН':'РАЗРЯДКА';
+  document.querySelector(`button[data-switch="${i}"][data-dir="-1"]`).disabled=value===0||alarmFinal;
+  document.querySelector(`button[data-switch="${i}"][data-dir="1"]`).disabled=value===2||alarmFinal;
+ });
+ const allOff=pos.every(x=>x===2),dot=$('statusDot');
+ dot.className='dot'+(alarmRaised?' alarm':'');
+ $('systemStatus').textContent=alarmFinal?'НАРУШЕНИЕ ЗАРЕГИСТРИРОВАНО':alarmRaised?'ТРЕВОГА':allOff?'ВСЕ КОНТУРЫ ОТКЛЮЧЕНЫ':anyOff()?'ЧАСТЬ КОНТУРОВ ОТКЛЮЧЕНА':'СИСТЕМЫ АКТИВНЫ';
+ $('socket').className='socket'+(emulator?' inserted':'');
+ $('socketText').textContent=emulator?'Имитатор подключён. Контрольная система получает ложный сигнал о нормальной работе.':'Имитатор у вас. Установите его в контрольное гнездо, чтобы подменить сигнал.';
+ $('insertBtn').textContent=emulator?'Извлечь имитатор':'Вставить имитатор';
+ $('clock').textContent=format(remaining);
+ $('clock').style.color=remaining<=120&&clockRunning?'#f2a18a':'';
+ $('clockCaption').textContent=alarmFinal?'Нарушение обнаружено':emulator?'Контроль подменён · отсчёт приостановлен':clockRunning?'Осталось до восстановления защиты':'Отсчёт начнётся после отключения первого контура.';
+ $('timerFill').style.width=(remaining/600*100)+'%';
+ $('timerFill').className='fill'+(remaining<=120?' low':'');
+ $('message').className='message'+(message.type?' '+message.type:'');
+ $('messageText').textContent=message.text;
+ $('messageIcon').textContent=message.icon;
+}
+function reset(){
+ pos=[0,0,0];readyAt=[0,0,0];errors=0;alarmRaised=false;remaining=600;clockRunning=false;alarmFinal=false;emulator=false;
+ lastTick=Date.now();say('Пульт в исходном состоянии. Все три контура активны.');draw();
+}
+$('circuits').addEventListener('click',e=>{
+ const btn=e.target.closest('button[data-switch]');if(!btn)return;
+ move(Number(btn.dataset.switch),Number(btn.dataset.dir));
+});
+$('insertBtn').addEventListener('click',()=>{
+ emulator=!emulator;checkTimer();
+ say(emulator?'Имитатор установлен. Контрольный циферблат остановлен.':'Имитатор извлечён. При отключённых контурах отсчёт возобновлён.',emulator?'success':'',emulator?'✓':'✦');draw();
+});
+$('reset').addEventListener('click',reset);
+setInterval(()=>{
+ const now=Date.now(),dt=(now-lastTick)/1000;lastTick=now;
+ if(clockRunning&&!alarmFinal){remaining=Math.max(0,remaining-dt);if(remaining<=0)timeExpired();}
+ if(clockRunning||pos.some((p,i)=>p===1&&now<readyAt[i])||pos.some((p,i)=>p===1))draw();
+},250);
+draw();
+})();
+</script>
+</body>
+</html>

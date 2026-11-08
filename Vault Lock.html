@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#161a20">
+<title>Шестерёнчатый затвор — Хранилище музея</title>
+<style>
+:root{color-scheme:dark;--bg:#12161b;--panel:#20252b;--panel2:#2b2c2b;--ink:#f1e6d0;--muted:#b7aa93;--brass:#c79d56;--bright:#edcd89;--line:rgba(226,190,126,.29);--green:#b5dec3;--red:#bd836f}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:Georgia,'Times New Roman',serif;background:radial-gradient(ellipse at 50% -20%,#3b3e3c 0%,transparent 56%),radial-gradient(ellipse at 50% 110%,#252d32 0%,transparent 50%),repeating-linear-gradient(110deg,#13181d 0px,#151b20 2px,#14191e 4px);color:var(--ink)}
+main{max-width:1120px;margin:0 auto;padding:40px 20px 60px}
+.eyebrow{text-align:center;letter-spacing:.35em;text-transform:uppercase;font:600 12px/1.4 system-ui,sans-serif;color:#c19f71;margin-bottom:14px}
+h1{text-align:center;font-size:clamp(34px,5vw,60px);font-weight:normal;letter-spacing:.02em;line-height:1.1;margin:0 0 8px;text-shadow:0 3px 14px #000}
+.subtitle{text-align:center;color:#cebca4;font-size:clamp(16px,2vw,20px);margin:0 auto 28px;max-width:760px;line-height:1.6}
+.frame{position:relative;border:2px solid #8b713f;border-radius:18px;background:linear-gradient(130deg,rgba(255,223,143,.045),transparent 24%,rgba(0,0,0,.1) 72%),repeating-linear-gradient(90deg,#25292d 0px,#25292d 11px,#25282b 12px,#25282b 22px);box-shadow:0 25px 85px #0009,inset 0 0 0 4px #161a1c,inset 0 0 0 6px #685732;padding:36px clamp(15px,3.7vw,48px) 28px;overflow:hidden}
+.frame:before,.frame:after{content:'✦';position:absolute;color:#c59e59;font-size:23px;top:9px}.frame:before{left:15px}.frame:after{right:15px}
+.slab{text-align:center;max-width:760px;margin:auto auto 28px;padding:14px 18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:#dfcaa2;line-height:1.7;font-size:17px}
+.slab strong{color:#f3dba6;font-weight:normal}
+.gears{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(7px,1.5vw,25px);align-items:center}
+.gear-unit{text-align:center;min-width:0}
+.gear-name{font:700 12px/1.4 system-ui,sans-serif;letter-spacing:.24em;color:#dbc293;margin-bottom:7px}
+.gear-well{position:relative;aspect-ratio:1;max-width:220px;margin:auto;border-radius:50%;background:radial-gradient(circle,#141718 45%,#45443b 52%,#1b1d1c 65%,transparent 68%);filter:drop-shadow(0 7px 7px #0009)}
+.gear-rotor{width:100%;height:100%;position:absolute;inset:0;transition:transform .48s cubic-bezier(.2,.8,.2,1);will-change:transform}
+.gear-rotor svg{width:100%;height:100%;overflow:visible}
+.index-mark{position:absolute;z-index:2;top:-4%;left:50%;transform:translateX(-50%);width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-top:17px solid #efce8d;filter:drop-shadow(0 2px 3px #000)}
+.gear-status{font:600 12px/1.3 system-ui,sans-serif;letter-spacing:.12em;color:#d0bc96;margin-top:9px}
+.gear-unit.aligned .gear-status{color:var(--green)}
+.operation{margin:26px 0 8px;text-align:center;text-transform:uppercase;letter-spacing:.23em;font:600 12px/1.6 system-ui,sans-serif;color:#bda783}
+.levers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.lever{border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,#34312b,#24282b);padding:16px 12px 15px;text-align:center;box-shadow:inset 0 1px 0 #e3c88b22}
+.lever-title{font-size:19px;margin-bottom:4px}.lever-sub{color:var(--muted);font:12px/1.5 system-ui,sans-serif;margin-bottom:14px}
+.lever-buttons{display:flex;gap:9px;justify-content:center}
+button{cursor:pointer;touch-action:manipulation;user-select:none}
+.turn{min-height:53px;min-width:74px;border-radius:8px;border:1px solid #8f774c;background:linear-gradient(#695236,#392d20);box-shadow:inset 0 1px 0 #e8ce8c40,0 4px 0 #17130f;color:#fff1d1;font:600 23px/1 system-ui,sans-serif;transition:background .13s,transform .13s}
+.turn:hover{background:linear-gradient(#957247,#463422)}
+.turn:active{transform:translateY(3px);box-shadow:inset 0 1px 0 #e8ce8c40,0 1px 0 #17130f}
+.turn:focus-visible,.utility:focus-visible{outline:3px solid #f0d28e;outline-offset:3px}
+.turn:disabled{opacity:.4;cursor:default}
+.turn .dir{display:block;font-size:10px;letter-spacing:.08em;font-weight:500;padding-top:4px}
+.footer{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:25px;border-top:1px solid var(--line);padding-top:20px}
+.state{display:flex;align-items:center;gap:10px;color:#d2bf9f;font:14px/1.6 system-ui,sans-serif}
+.light{display:inline-block;width:12px;height:12px;border-radius:50%;background:#ac6959;box-shadow:0 0 14px #b36f65a6}
+.light.done{background:#b8e7b7;box-shadow:0 0 20px #b0e4a1}
+.utilities{display:flex;gap:10px;flex-wrap:wrap}
+.utility{border:1px solid #66583c;border-radius:8px;background:#272a2a;padding:10px 14px;color:#dfc7a5;font:13px system-ui,sans-serif}
+.utility:hover{background:#333332}
+.utility:disabled{opacity:.35;cursor:default}
+.win{margin-top:24px;border:1px solid #8ea781;border-radius:12px;padding:23px 22px;text-align:center;background:linear-gradient(135deg,#18372d,#1d2626);box-shadow:0 0 50px #b2d89d17}
+.win h2{font-size:28px;font-weight:normal;margin:0 0 7px;color:#d4e8bb}
+.win p{color:#d5e1d0;margin:0;line-height:1.65}
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:750px){main{padding:23px 10px 36px}.frame{padding:29px 15px 20px}.gears{gap:4px}.gear-name{font-size:10px}.gear-status{font-size:10px}.levers{gap:7px}.lever{padding:13px 5px}.lever-title{font-size:15px}.lever-sub{font-size:10px}.lever-buttons{gap:5px}.turn{min-width:0;width:50%;min-height:48px;font-size:20px}.turn .dir{font-size:9px}.subtitle{font-size:15px}.slab{font-size:15px}}
+@media(max-width:460px){.gears{grid-template-columns:repeat(2,minmax(0,1fr));gap:17px 12px;max-width:390px;margin:auto}.gear-well{max-width:150px}.levers{grid-template-columns:1fr;max-width:350px;margin:auto}.lever{display:grid;grid-template-columns:1fr auto;gap:0 10px;align-items:center;text-align:left;padding:8px 12px}.lever-title{margin:0}.lever-sub{grid-column:1;grid-row:2;margin:0}.lever-buttons{grid-column:2;grid-row:1/span 2;width:152px}.turn{width:71px;min-height:51px}.footer{justify-content:center}.state{flex-basis:100%;justify-content:center}}
+@media(prefers-reduced-motion:reduce){.gear-rotor,.turn{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Городской музей · Подвальное хранилище</div>
+  <h1>Шестерёнчатый затвор</h1>
+  <p class="subtitle">Перед вами массивная дверь. На ней — четыре бронзовых диска и три рычага. Внутри механизма слышится тихое тиканье.</p>
+  <section class="frame" aria-label="Интерактивная головоломка замка">
+    <div class="slab">«<strong>Четыре указателя должны смотреть к вершине.</strong><br>Лишь тогда железные засовы уступят дорогу».</div>
+    <div class="gears" id="gears" aria-live="off"></div>
+    <div class="operation">Рычаги управления</div>
+    <div class="levers" id="levers">
+      <div class="lever"><div class="lever-title">Левый рычаг</div><div class="lever-sub">Связывает диски I и II</div><div class="lever-buttons"><button class="turn" data-idx="0" data-dir="-1" aria-label="Левый рычаг против часовой стрелки">↶<span class="dir">ПРОТИВ</span></button><button class="turn" data-idx="0" data-dir="1" aria-label="Левый рычаг по часовой стрелке">↷<span class="dir">ПО ЧАСОВОЙ</span></button></div></div>
+      <div class="lever"><div class="lever-title">Средний рычаг</div><div class="lever-sub">Связывает диски II и III</div><div class="lever-buttons"><button class="turn" data-idx="1" data-dir="-1" aria-label="Средний рычаг против часовой стрелки">↶<span class="dir">ПРОТИВ</span></button><button class="turn" data-idx="1" data-dir="1" aria-label="Средний рычаг по часовой стрелке">↷<span class="dir">ПО ЧАСОВОЙ</span></button></div></div>
+      <div class="lever"><div class="lever-title">Правый рычаг</div><div class="lever-sub">Связывает диски III и IV</div><div class="lever-buttons"><button class="turn" data-idx="2" data-dir="-1" aria-label="Правый рычаг против часовой стрелки">↶<span class="dir">ПРОТИВ</span></button><button class="turn" data-idx="2" data-dir="1" aria-label="Правый рычаг по часовой стрелке">↷<span class="dir">ПО ЧАСОВОЙ</span></button></div></div>
+    </div>
+    <div id="win" class="win" hidden><h2>✦ Засовы отступают ✦</h2><p>Все указатели выровнены. Из глубины двери доносится тяжёлый металлический щелчок — проход в хранилище открыт.</p></div>
+    <div class="footer"><div class="state"><span class="light" id="light"></span><span id="status" role="status" aria-live="polite">Затвор заперт · Поворотов: 0</span></div><div class="utilities"><button class="utility" id="undo" disabled>↶ Отменить ход</button><button class="utility" id="reset">⟲ Вернуть в начало</button></div></div>
+  </section>
+</main>
+<script>
+(function(){
+  'use strict';
+  const START=[2,1,3,2], labels=['I','II','III','IV'];
+  let positions=START.slice(), angles=START.map(x=>x*90), history=[], won=false;
+  const gears=document.getElementById('gears');
+  const mod4=n=>(n%4+4)%4;
+  function gearPath(){
+    const parts=[],n=18,cx=100,cy=100;
+    for(let t=0;t<n;t++){
+      for(let j=0;j<4;j++){
+        let a=(-Math.PI/2)+(t+j/4)*Math.PI*2/n;
+        let r=j===0||j===3?82:94;
+        parts.push(`${(cx+Math.cos(a)*r).toFixed(2)},${(cy+Math.sin(a)*r).toFixed(2)}`);
+      }
+    }
+    return parts.join(' ');
+  }
+  const points=gearPath();
+  function wheelSVG(i){return `<svg viewBox="0 0 200 200" aria-hidden="true"><defs><radialGradient id="metal${i}" cx="38%" cy="30%" r="75%"><stop stop-color="#e6c782"/><stop offset=".46" stop-color="#ac7b39"/><stop offset=".78" stop-color="#775527"/><stop offset="1" stop-color="#3c2e23"/></radialGradient><radialGradient id="inner${i}"><stop stop-color="#272d2e"/><stop offset=".8" stop-color="#171b1e"/><stop offset="1" stop-color="#090c0e"/></radialGradient></defs><polygon points="${points}" fill="url(#metal${i})" stroke="#e2bc6a" stroke-width="1.7"/><circle cx="100" cy="100" r="76" fill="#3b3025" stroke="#ebcb85" stroke-width="3"/><circle cx="100" cy="100" r="65" fill="url(#inner${i})" stroke="#76613e" stroke-width="2"/><g stroke="#c39956" stroke-width="3" opacity=".6"><path d="M100 38V49 M100 151V162 M38 100H49 M151 100H162"/></g><path d="M100 47 L119 93 L107 91 L107 133 L93 133 L93 91 L81 93 Z" fill="#edd198" stroke="#3d2b13" stroke-width="2"/><circle cx="100" cy="100" r="11" fill="#7c592b" stroke="#f6d99c" stroke-width="2.4"/><circle cx="100" cy="100" r="3" fill="#efe2bb"/></svg>`}
+  for(let i=0;i<4;i++){
+    const u=document.createElement('div');u.className='gear-unit';u.id='unit'+i;
+    u.innerHTML=`<div class="gear-name">ДИСК ${labels[i]}</div><div class="gear-well"><div class="index-mark"></div><div class="gear-rotor" id="rotor${i}">${wheelSVG(i)}</div></div><div class="gear-status" id="gearStatus${i}"></div>`;
+    gears.appendChild(u);
+  }
+  function draw(){
+    for(let i=0;i<4;i++){
+      document.getElementById('rotor'+i).style.transform=`rotate(${angles[i]}deg)`;
+      const ok=positions[i]===0;
+      document.getElementById('unit'+i).classList.toggle('aligned',ok);
+      document.getElementById('gearStatus'+i).textContent=ok?'СОВМЕЩЁН':'НЕ СОВМЕЩЁН';
+    }
+    won=positions.every(x=>x===0);
+    document.getElementById('win').hidden=!won;
+    document.getElementById('light').classList.toggle('done',won);
+    document.getElementById('status').textContent=won?`Затвор открыт · Поворотов: ${history.length}`:`Затвор заперт · Поворотов: ${history.length}`;
+    document.getElementById('undo').disabled=history.length===0;
+    document.querySelectorAll('.turn').forEach(b=>b.disabled=won);
+  }
+  function turn(i,dir){
+    if(won)return;
+    history.push({positions:positions.slice(),angles:angles.slice()});
+    positions[i]=mod4(positions[i]+dir);positions[i+1]=mod4(positions[i+1]-dir);
+    angles[i]+=dir*90;angles[i+1]-=dir*90;
+    draw();
+  }
+  document.getElementById('levers').addEventListener('click',e=>{
+    const b=e.target.closest('button[data-idx]');if(!b)return;
+    turn(Number(b.dataset.idx),Number(b.dataset.dir));
+  });
+  document.getElementById('undo').addEventListener('click',()=>{
+    const p=history.pop();if(!p)return;
+    positions=p.positions;angles=p.angles;draw();
+  });
+  document.getElementById('reset').addEventListener('click',()=>{
+    positions=START.slice();angles=START.map(x=>x*90);history=[];draw();
+  });
+  draw();
+})();
+</script>
+</body>
+</html>
