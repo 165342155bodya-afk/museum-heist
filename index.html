@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Грейхейвенский исторический музей — механизмы</title>
+  <style>
+    :root { --bg:#101720; --panel:#1b2631; --line:#405465; --text:#f0e8d7; --muted:#9cabae; --gold:#d2a45e; --gold2:#f1cc84; }
+    * { box-sizing: border-box; }
+    body { margin:0; min-height:100vh; background:radial-gradient(ellipse at 50% 0%,#2a3842 0%,var(--bg) 65%); color:var(--text); font-family:Georgia,'Times New Roman',serif; display:flex; align-items:center; justify-content:center; padding:24px; }
+    main { width:min(600px,100%); padding:32px 24px; border:1px solid #52616a; background:linear-gradient(155deg,#23313b,#151f29); box-shadow:0 16px 80px #0009; border-radius:14px; text-align:center; }
+    .ornament {font-size:27px;color:var(--gold);letter-spacing:8px;margin-bottom:10px}
+    h1 { font-size:clamp(24px,5vw,36px); font-weight:normal; line-height:1.2; margin:0 0 10px; }
+    .sub { font-size:13px; color:var(--gold2); text-transform:uppercase; letter-spacing:2.3px; margin:0 0 24px; }
+    .description {color:var(--muted);line-height:1.6;margin:0 auto 26px;max-width:420px;font-family:Arial,sans-serif;font-size:14px}
+    .links {display:grid;gap:14px}
+    a {color:var(--text);text-decoration:none;display:flex;align-items:center;justify-content:space-between;gap:16px;text-align:left;padding:19px 20px;border:1px solid #66573b;border-radius:9px;background:linear-gradient(120deg,#36404a,#222d38);transition:background .15s,border-color .15s,transform .15s}
+    a:hover,a:focus-visible {background:#394c58;border-color:var(--gold2);transform:translateY(-2px);outline:none}
+    a .label {font-size:18px}
+    a .icon {color:var(--gold2);font-size:24px;line-height:1}
+    footer {font:12px Arial,sans-serif;color:#82939b;margin-top:27px}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="ornament" aria-hidden="true">⚙ ✦ ⚙</div>
+    <div class="sub">Грейхейвенский исторический музей</div>
+    <h1>Охранные механизмы</h1>
+    <p class="description">Выберите устройство, с которым хотите взаимодействовать.</p>
+    <nav class="links" aria-label="Мини-игры">
+      <a href="Security%20panel.html"><span class="label">Пульт безопасности</span><span class="icon" aria-hidden="true">⌁</span></a>
+      <a href="Vault%20Lock.html"><span class="label">Замок хранилища</span><span class="icon" aria-hidden="true">⚿</span></a>
+    </nav>
+    <footer>Грейхейвен · Служебные системы музея</footer>
+  </main>
+</body>
+</html>
